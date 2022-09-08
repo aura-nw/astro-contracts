@@ -15,7 +15,7 @@ Details and implementations in the contract, please refer to each contract repos
 
 ## Store cw721 contract
 Artaverse contract uses cw721 to manage its NFTs, so the first thing you need to do is have a cw721 contract that is stored on the network.
-Let's build, store and save the codeid of the contract [cw-nfts]https://github.com/CosmWasm/cw-nfts.
+Let's build, store and save the codeid of the contract [cw-nfts](https://github.com/CosmWasm/cw-nfts).
 
 ## Store Minter contract
 The next thing we need is the store [Minter](contracts/minter) contract. Again, please save the codeid of the contract.
