@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "InstantiateMsg",
+  "title": "StateResponse",
   "type": "object",
   "required": [
     "cw721_code_id",
@@ -8,13 +8,11 @@
   ],
   "properties": {
     "cw721_code_id": {
-      "description": "code id of cw721 contract was stored",
       "type": "integer",
       "format": "uint64",
       "minimum": 0.0
     },
     "minter_code_id": {
-      "description": "code id of minter contract was stored",
       "type": "integer",
       "format": "uint64",
       "minimum": 0.0

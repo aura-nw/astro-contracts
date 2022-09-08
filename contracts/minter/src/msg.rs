@@ -49,7 +49,7 @@ pub enum ExecuteMsg {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
-pub enum QueryMsg {
+pub enum MinterQueryMsg {
     /// Return config info set in Instantiate
     GetConfig {},
     ///Return royalty info include Royalty address and the royalty fee must be pay.
@@ -106,17 +106,17 @@ pub enum QueryMsg {
     },
 }
 
-impl From<QueryMsg> for CW721QueryMsg {
-    fn from(msg: QueryMsg) -> CW721QueryMsg {
+impl From<MinterQueryMsg> for CW721QueryMsg {
+    fn from(msg: MinterQueryMsg) -> CW721QueryMsg {
         match msg {
-            QueryMsg::OwnerOf {
+            MinterQueryMsg::OwnerOf {
                 token_id,
                 include_expired,
             } => CW721QueryMsg::OwnerOf {
                 token_id,
                 include_expired,
             },
-            QueryMsg::AllOperators {
+            MinterQueryMsg::AllOperators {
                 owner,
                 include_expired,
                 start_after,
@@ -127,17 +127,17 @@ impl From<QueryMsg> for CW721QueryMsg {
                 start_after,
                 limit,
             },
-            QueryMsg::NumTokens {} => CW721QueryMsg::NumTokens {},
-            QueryMsg::ContractInfo {} => CW721QueryMsg::ContractInfo {},
-            QueryMsg::NftInfo { token_id } => CW721QueryMsg::NftInfo { token_id },
-            QueryMsg::AllNftInfo {
+            MinterQueryMsg::NumTokens {} => CW721QueryMsg::NumTokens {},
+            MinterQueryMsg::ContractInfo {} => CW721QueryMsg::ContractInfo {},
+            MinterQueryMsg::NftInfo { token_id } => CW721QueryMsg::NftInfo { token_id },
+            MinterQueryMsg::AllNftInfo {
                 token_id,
                 include_expired,
             } => CW721QueryMsg::AllNftInfo {
                 token_id,
                 include_expired,
             },
-            QueryMsg::Tokens {
+            MinterQueryMsg::Tokens {
                 owner,
                 start_after,
                 limit,
@@ -146,7 +146,7 @@ impl From<QueryMsg> for CW721QueryMsg {
                 start_after,
                 limit,
             },
-            QueryMsg::AllTokens { start_after, limit } => {
+            MinterQueryMsg::AllTokens { start_after, limit } => {
                 CW721QueryMsg::AllTokens { start_after, limit }
             }
             _ => panic!("cannot covert {:?} to CW721QueryMsg", msg),

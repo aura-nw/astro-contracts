@@ -1,5 +1,5 @@
 use crate::error::ContractError;
-use crate::msg::{ConfigResponse, ExecuteMsg, InstantiateMsg, QueryMsg, RoyaltiesInfoResponse};
+use crate::msg::{ConfigResponse, ExecuteMsg, InstantiateMsg, MinterQueryMsg, RoyaltiesInfoResponse};
 use crate::state::{Config, CONFIG, CW721_ADDRESS, MINTABLE_NUM_TOKENS, MINTABLE_TOKEN_IDS};
 use crate::{Deserialize, Serialize};
 use crate::{Extension, JsonSchema, Metadata};
@@ -22,7 +22,7 @@ const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 // governance parameters
 pub(crate) const MAX_TOKEN_LIMIT: u32 = 10000;
-pub(crate) const MAX_TOKEN_PER_BATCH_LIMIT: u32 = 20;
+pub(crate) const MAX_TOKEN_PER_BATCH_LIMIT: u32 = 200;
 pub(crate) const INSTANTIATE_CW721_REPLY_ID: u64 = 1;
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
@@ -198,10 +198,10 @@ pub fn execute_batch_transfer_nft(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
-pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+pub fn query(deps: Deps, env: Env, msg: MinterQueryMsg) -> StdResult<Binary> {
     match msg {
-        QueryMsg::GetConfig {} => to_binary(&query_config(deps)?),
-        QueryMsg::RoyaltyInfo { sale_price } => to_binary(&query_royalties_info(deps, sale_price)?),
+        MinterQueryMsg::GetConfig {} => to_binary(&query_config(deps)?),
+        MinterQueryMsg::RoyaltyInfo { sale_price } => to_binary(&query_royalties_info(deps, sale_price)?),
         _ => Cw721ArtaverseContract::default().query(deps, env, msg.into()),
     }
 }

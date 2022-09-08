@@ -3,21 +3,21 @@
   "title": "ExecuteMsg",
   "oneOf": [
     {
-      "description": "Mint a new NFT",
+      "description": "update code id of minter contract was stored",
       "type": "object",
       "required": [
-        "mint"
+        "update_minter_code_id"
       ],
       "properties": {
-        "mint": {
+        "update_minter_code_id": {
           "type": "object",
           "required": [
-            "token_id"
+            "minter_code_id"
           ],
           "properties": {
-            "token_id": {
+            "minter_code_id": {
               "type": "integer",
-              "format": "uint32",
+              "format": "uint64",
               "minimum": 0.0
             }
           }
@@ -26,50 +26,21 @@
       "additionalProperties": false
     },
     {
-      "description": "Mint a batch of new NFT",
+      "description": "update code id of cw721 contract was stored",
       "type": "object",
       "required": [
-        "batch_mint"
+        "update_cw721_code_id"
       ],
       "properties": {
-        "batch_mint": {
+        "update_cw721_code_id": {
           "type": "object",
           "required": [
-            "token_ids"
+            "cw721_code_id"
           ],
           "properties": {
-            "token_ids": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "uint32",
-                "minimum": 0.0
-              }
-            }
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "required": [
-        "mint_to"
-      ],
-      "properties": {
-        "mint_to": {
-          "type": "object",
-          "required": [
-            "recipient",
-            "token_id"
-          ],
-          "properties": {
-            "recipient": {
-              "type": "string"
-            },
-            "token_id": {
+            "cw721_code_id": {
               "type": "integer",
-              "format": "uint32",
+              "format": "uint64",
               "minimum": 0.0
             }
           }
@@ -78,61 +49,78 @@
       "additionalProperties": false
     },
     {
-      "description": "Transfer is a base message to move a token to another account without triggering actions",
+      "description": "call minter contract to instantiate a minter contract",
       "type": "object",
       "required": [
-        "transfer_nft"
+        "create_minter"
       ],
       "properties": {
-        "transfer_nft": {
+        "create_minter": {
           "type": "object",
           "required": [
-            "recipient",
-            "token_id"
+            "minter_instantiate_msg"
           ],
           "properties": {
-            "recipient": {
-              "type": "string"
-            },
-            "token_id": {
-              "type": "integer",
-              "format": "uint32",
-              "minimum": 0.0
-            }
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    {
-      "description": "Transfer is a base message to move a batch token to another account without triggering actions",
-      "type": "object",
-      "required": [
-        "batch_transfer_nft"
-      ],
-      "properties": {
-        "batch_transfer_nft": {
-          "type": "object",
-          "required": [
-            "recipient",
-            "token_ids"
-          ],
-          "properties": {
-            "recipient": {
-              "type": "string"
-            },
-            "token_ids": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "uint32",
-                "minimum": 0.0
-              }
+            "minter_instantiate_msg": {
+              "$ref": "#/definitions/CreateMinterInstantiateMsg"
             }
           }
         }
       },
       "additionalProperties": false
     }
-  ]
+  ],
+  "definitions": {
+    "CreateMinterInstantiateMsg": {
+      "type": "object",
+      "required": [
+        "base_token_uri",
+        "max_tokens_per_batch_mint",
+        "max_tokens_per_batch_transfer",
+        "name",
+        "num_tokens",
+        "symbol"
+      ],
+      "properties": {
+        "base_token_uri": {
+          "type": "string"
+        },
+        "max_tokens_per_batch_mint": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "max_tokens_per_batch_transfer": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "name": {
+          "type": "string"
+        },
+        "num_tokens": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "royalty_payment_address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "royalty_percentage": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "symbol": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
