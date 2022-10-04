@@ -1,6 +1,6 @@
 use crate::contract::{execute, instantiate, query, reply};
 use crate::contract::{INSTANTIATE_CW721_REPLY_ID, MAX_TOKEN_LIMIT, MAX_TOKEN_PER_BATCH_LIMIT};
-use crate::msg::{ConfigResponse, InstantiateMsg, QueryMsg};
+use crate::msg::{ConfigResponse, InstantiateMsg, MinterQueryMsg};
 use cw721_base::InstantiateMsg as Cw721InstantiateMsg;
 
 #[cfg(test)]
@@ -213,7 +213,7 @@ mod tests {
                 reply_on: ReplyOn::Success,
             }]
         );
-        let query_msg = QueryMsg::GetConfig {};
+        let query_msg = MinterQueryMsg::GetConfig {};
         let res = query(deps.as_ref(), mock_env(), query_msg).unwrap();
         let config: ConfigResponse = from_binary(&res).unwrap();
         assert_eq!(
@@ -247,7 +247,7 @@ mod tests {
         );
 
         // check query royalties info
-        let query_msg = QueryMsg::RoyaltyInfo {
+        let query_msg = MinterQueryMsg::RoyaltyInfo {
             sale_price: Uint128::from(200u128),
         };
         let res = query(deps.as_ref(), mock_env(), query_msg).unwrap();
@@ -273,7 +273,7 @@ mod tests {
             max_tokens_per_batch_mint: 10,
             max_tokens_per_batch_transfer: 10,
             cw721_code_id: 10u64,
-            name: String::from("ARTAVERSER"),
+            name: String::from("ARTAVERSE"),
             symbol: String::from("ATA"),
             royalty_percentage: Option::from(10u64),
             royalty_payment_address: Option::from(String::from("creator_address")),
@@ -283,7 +283,7 @@ mod tests {
         assert!(res.is_ok());
 
         // check query config
-        let query_msg = QueryMsg::GetConfig {};
+        let query_msg = MinterQueryMsg::GetConfig {};
         let res = query(deps.as_ref(), mock_env(), query_msg).unwrap();
         let config: ConfigResponse = from_binary(&res).unwrap();
 
