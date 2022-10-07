@@ -12,7 +12,7 @@ use cosmwasm_std::{
 use cw2::set_contract_version;
 use cw721_base::{ExecuteMsg as Cw721ExecuteMsg, InstantiateMsg as Cw721InstantiateMsg, MintMsg};
 use cw_utils::parse_reply_instantiate_data;
-use url::Url;
+// use url::Url;
 
 pub type Cw721ArtaverseContract<'a> = cw721_base::Cw721Contract<'a, Extension, Empty>;
 
@@ -71,10 +71,10 @@ pub fn instantiate(
     }
 
     // Check that base_token_uri is a valid IPFS uri
-    let parsed_token_uri = Url::parse(&msg.base_token_uri)?;
-    if parsed_token_uri.scheme() != "ipfs" {
-        return Err(ContractError::InvalidBaseTokenURI {});
-    }
+    // let parsed_token_uri = Url::parse(&msg.base_token_uri)?;
+    // if parsed_token_uri.scheme() != "ipfs" {
+    //     return Err(ContractError::InvalidBaseTokenURI {});
+    // }
 
     let config = Config {
         owner: info.sender.clone(),
