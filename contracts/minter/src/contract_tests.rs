@@ -309,13 +309,13 @@ mod tests {
         reply(deps.as_mut(), mock_env(), reply_msg).unwrap();
 
         // call mint NFT
-        let msg_mint = Mint { token_id: 1 };
+        let msg_mint = Mint { token_id: 1.to_string() };
         let res_execute = execute(deps.as_mut(), mock_env(), info.clone(), msg_mint);
         assert!(res_execute.is_ok());
 
         // call batch mint NFT
         let msg_mint = BatchMint {
-            token_ids: vec![2, 3, 4],
+            token_ids: vec!["x".to_string(), "xxx".to_string(), "xxxx".to_string()],
         };
         let res_execute = execute(deps.as_mut(), mock_env(), info.clone(), msg_mint);
         assert!(res_execute.is_ok());

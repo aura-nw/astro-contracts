@@ -32,18 +32,18 @@ pub struct InstantiateMsg {
 #[serde(rename_all = "snake_case")]
 pub enum ExecuteMsg {
     /// Mint a new NFT
-    Mint { token_id: u32 },
+    Mint { token_id: String },
     /// Mint a batch of new NFT
-    BatchMint { token_ids: Vec<u32> },
+    BatchMint { token_ids: Vec<String> },
     /// Mint a new NFT for recipient specified
-    MintTo { token_id: u32, recipient: String },
+    MintTo { token_id: String, recipient: String },
     /// Transfer is a base message to move a token to another account without triggering actions
-    TransferNft { recipient: String, token_id: u32 },
+    TransferNft { recipient: String, token_id: String },
 
     /// Transfer is a base message to move a batch token to another account without triggering actions
     BatchTransferNft {
         recipient: String,
-        token_ids: Vec<u32>,
+        token_ids: Vec<String>,
     },
 }
 

@@ -32,7 +32,7 @@ pub enum ContractError {
     InvalidTokenId {},
 
     #[error("Token id: {token_id} already sold")]
-    TokenIdAlreadySold { token_id: u32 },
+    TokenIdAlreadySold { token_id: String },
 
     #[error("Sold out")]
     SoldOut {},
@@ -42,6 +42,12 @@ pub enum ContractError {
 
     #[error("Invalid base token URI (must be an IPFS URI)")]
     InvalidBaseTokenURI {},
+
+    #[error("Exceed the amount can mint")]
+    ExceedAmountCanMint {},
+
+    #[error("Error when update state")]
+    MapSaveError {},
 }
 
 impl From<ParseError> for ContractError {
